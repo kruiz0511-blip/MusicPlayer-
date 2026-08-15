@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Media Showcase</title>
+  <style>
+    :root {
+      --bg-color: #0b0f19;
+      --card-bg: #161f32;
+      --border-color: #23314d;
+      --text-main: #f1f5f9;
+      --text-muted: #94a3b8;
+      --accent-color: #3b82f6;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+      background-color: var(--bg-color);
+      color: var(--text-main);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 3rem 1.5rem;
+    }
+
+    /* Top Logo Header */
+    header {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      margin-bottom: 2.5rem;
+    }
+
+    .logo-wrapper {
+      position: relative;
+      width: 120px;
+      height: 120px;
+      margin-bottom: 1.25rem;
+    }
+
+    .rotating-logo {
+      width: 100%;
+      height: 100%;
+      border-radius: 50%;
+      object-fit: cover;
+      animation: spin 10s linear infinite;
+      box-shadow: 0 0 25px rgba(59, 130, 246, 0.4);
+    }
+
+    @keyframes spin {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+
+    h1 {
+      font-size: 2rem;
+      font-weight: 700;
+      letter-spacing: -0.5px;
+      background: linear-gradient(135deg, #60a5fa, #a855f7);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    /* Audio Section */
+    .player-card {
+      background: var(--card-bg);
+      border: 1px solid var(--border-color);
+      border-radius: 16px;
+      padding: 1.5rem 2rem;
+      width: 100%;
+      max-width: 520px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.35);
+      margin-bottom: 3rem;
+      text-align: center;
+    }
+
+    .player-card h2 {
+      font-size: 1.1rem;
+      color: var(--text-muted);
+      margin-bottom: 1rem;
+      font-weight: 500;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+
+    audio {
+      width: 100%;
+      border-radius: 8px;
+    }
+
+    /* Picture Gallery */
+    .gallery-container {
+      width: 100%;
+      max-width: 900px;
+    }
+
+    .section-title {
+      font-size: 1.25rem;
+      margin-bottom: 1.5rem;
+      color: var(--text-muted);
+      text-align: center;
+    }
+
+    .gallery {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 1.5rem;
+    }
+
+    .gallery-item {
+      background: var(--card-bg);
+      border: 1px solid var(--border-color);
+      border-radius: 14px;
+      overflow: hidden;
+      box-shadow: 0 6px 20px rgba(0, 0, 0, 0.25);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .gallery-item:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 12px 30px rgba(0, 0, 0, 0.4);
+    }
+
+    .gallery-item img {
+      width: 100%;
+      height: 300px;
+      object-fit: cover;
+      display: block;
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <div class="logo-wrapper">
+      <img src="logo/logo.png" alt="Rotating Logo" class="rotating-logo">
+    </div>
+    <h1>Audio & Gallery Showcase</h1>
+  </header>
+
+  <!-- Music Player -->
+  <div class="player-card">
+    <h2>Now Playing</h2>
+    <audio id="audioPlayer" controls autoplay loop>
+      <source src="Audio/COSMIC (1).mp3" type="audio/mpeg">
+      <source src="Audio/Ma dĭng (5).mp3" type="audio/mpeg">
+      Your browser does not support the audio element.
+    </audio>
+  </div>
+
+  <!-- Image Showcase -->
+  <div class="gallery-container">
+    <h3 class="section-title">Featured Pictures</h3>
+    <div class="gallery">
+      <div class="gallery-item">
+        <img src="My pictures/sergio.png" alt="Picture 1">
+      </div>
+      <div class="gallery-item">
+        <img src="My pictures/Alphonse.jpg" alt="Picture 2">
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // Handle Autoplay policy restrictions across web browsers
+    window.addEventListener('DOMContentLoaded', () => {
+      const audio = document.getElementById('audioPlayer');
+      
+      const playAudio = () => {
+        audio.play().catch(() => {
+          // If autoplay is blocked by browser policy, play on first click anywhere
+          document.body.addEventListener('click', () => {
+            audio.play();
+          }, { once: true });
+        });
+      };
+
+      playAudio();
+    });
+  </script>
+
+</body>
+</html>
